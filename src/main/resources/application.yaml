@@ -1,0 +1,12 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/core
+    username: root
+    password: pass@123
+    testWhileIdle : true
+    validationQuery:  SELECT 1
