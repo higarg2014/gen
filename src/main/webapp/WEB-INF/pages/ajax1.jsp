@@ -14,89 +14,17 @@
         </th>
     </tr>
 
-
-    <fmt:formatDate var="i" pattern="E" value="${now}"/>
-
-    <c:choose>
-        <c:when test="${i=='Sun'}">
-            <c:set var="i" value="1"/>
-        </c:when>
-
-        <c:when test="${i=='Mon'}">
-            <c:set var="i" value="2"/>
-        </c:when>
-
-        <c:when test="${i=='Tue'}">
-            <c:set var="i" value="3"/>
-        </c:when>
-
-        <c:when test="${i=='Wed'}">
-            <c:set var="i" value="4"/>
-        </c:when>
-
-        <c:when test="${i=='Thu'}">
-            <c:set var="i" value="5"/>
-        </c:when>
-
-        <c:when test="${i=='Fri'}">
-            <c:set var="i" value="6"/>
-        </c:when>
-
-        <c:when test="${i=='Sat'}">
-            <c:set var="i" value="7"/>
-        </c:when>
-
-        <c:otherwise>
-            <c:set var="i" value="?"/>
-        </c:otherwise>
-    </c:choose>
-
-    <c:choose>
-        <c:when test="${param.month==2}">
-            <c:set var="max" value="28"/>
-
-            <c:if
-                    test="${ ((param.year % 4 == 0 && paran.year % 100 != 0) || param.year % 400 == 0) }">
-
-                <c:set var="max" value="29"/>
-            </c:if>
-        </c:when>
-
-        <c:when test="${param.month==4}">
-            <c:set var="max" value="30"/>
-        </c:when>
-
-        <c:when test="${param.month==6}">
-            <c:set var="max" value="30"/>
-        </c:when>
-
-        <c:when test="${param.month==9}">
-            <c:set var="max" value="30"/>
-        </c:when>
-
-        <c:when test="${param.month==11}">
-            <c:set var="max" value="30"/>
-        </c:when>
-
-        <c:otherwise>
-            <c:set var="max" value="31"/>
-        </c:otherwise>
-    </c:choose>
+    <c:set var="i" value="${fareCalendar.dayOfMonth}"/>
+    <c:set var="max" value="${fareCalendar.numberOfDays}"/>
+    <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
 
     <tr>
-        <th width="14%">S</th>
-        <th width="14%">M</th>
-        <th width="14%">T</th>
-        <th width="14%">W</th>
-        <th width="14%">T</th>
-        <th width="14%">F</th>
-        <th width="14%">S</th>
-
+        <c:forEach items="${days}" var="day">
+            <th width="14%">${day}</th>
+        </c:forEach>
     </tr>
 
     </thead>
-
-    <c:set var="d" value="1"/>
 
     <c:set var="d" value="1"/>
 
