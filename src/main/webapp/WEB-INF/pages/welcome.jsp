@@ -57,6 +57,7 @@
         .calendar-table td, .calendar-table th { height:30px; border:1px solid #ddd; padding:10px 0px;text-align:center; cursor:pointer; font-size:14px; color:#444;font-weight:bold;}
         .calendar-table td:hover, .calendar-table td.range { background-color:#e7f2fb;}
         .calendar-table td:hover.active, .calendar-table td.active {background-color:#164880; color:#fff;}
+        .calendar-table td:hover.active, .calendar-table td.active .price{background-color:#164880; color:#fff;}
         .calendar-table td.disabled, .calendar-table td.disabled:hover { color:#ccc; cursor:not-allowed; background-color:#fff;}
         .calendar-table td .price { display:block; font-weight:normal; font-size:10px; margin-top:0.8rem;color: green;}
         .prev-btn, .next-btn { border:1px solid #ddd; border-radius:5px; color:#333; padding:5px;}
