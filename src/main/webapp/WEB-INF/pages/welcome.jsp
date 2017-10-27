@@ -124,13 +124,15 @@
                         </c:otherwise>
                         </c:choose>
 
-                        <td onclick="getCalendarDate(${d})" class="${val}" id="${data[d-1].calId}">
+                        <td onclick="getCalendarDate(${d})" class="${val}" id="${fareCalendar.dataMap['cal'.concat(d)].calId}">
                             <c:if test="${ (d<=max) && ((x>7)||(i<=x)) }">
                                 <c:out value="${d}"/>
+
                                 <c:if test="${d>=currentDay}">
-                                    <small class="price">${data[d-1].calValue}</small>
+                                    <small class="price">${fareCalendar.dataMap['cal'.concat(d)].calValue}</small>
                                 </c:if>
                                 <c:set var="d" value="${d+1}"/>
+
                             </c:if>
 
                         </td>
@@ -143,6 +145,8 @@
         </ul>
     </div>
 </div>
+
+
 
 </body>
 

@@ -30,33 +30,32 @@ public class TestController {
            List<CalendarElement> list=new ArrayList<CalendarElement>();
         int month=10;
         int year=2017;
-
-           for(int i=1;i<=31;i++) {
-
-               CalendarElement calendarElement = new CalendarElement();
-               calendarElement.setCalKey(i+"");
-               calendarElement.setCalValue("$"+i+100);
-               calendarElement.setCalId(i+""+10+2017);
-
-               list.add(calendarElement);
-
-           }
         Calendar monthStart = new GregorianCalendar(year, month-1, 1);
         int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
         int day=monthStart.get(Calendar.DAY_OF_WEEK);
+
+        Map<String,CalendarElement> map=new HashMap<String,CalendarElement>();
+
+        for(int i=1;i<=max;i++) {
+            CalendarElement calendarElement = new CalendarElement();
+            calendarElement.setCalKey(i+"");
+            calendarElement.setCalValue("$"+i+100);
+            calendarElement.setCalId(i+""+10+2017);
+            map.put("cal"+i,calendarElement);
+        }
 
         FareCalendar fareCalendar=new FareCalendar();
         fareCalendar.setYear(year);
         fareCalendar.setMonth(month);
         fareCalendar.setDayOfMonth(day);
         fareCalendar.setNumberOfDays(max);
+        fareCalendar.setDataMap(map);
 
            model.addAttribute("fareCalendar", fareCalendar);
-           model.addAttribute("data", list);
            model.addAttribute("monthData",month+"/1/"+year+"}");
            model.addAttribute("mon",month+""+year);
-           model.addAttribute("currentDay","26");
-
+           model.addAttribute("currentDay","27");
+           model.addAttribute("map",map);
         return "welcome";
     }
 
@@ -67,32 +66,31 @@ public class TestController {
         int month=Integer.parseInt(request.getParameter("month"));
         int year=Integer.parseInt(request.getParameter("year"));
         String path=request.getParameter("path");
-        List<CalendarElement> list=new ArrayList<CalendarElement>();
-
-        for(int i=1;i<=31;i++) {
-            CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalKey(i+"");
-            calendarElement.setCalValue("$ "+i+100);
-            calendarElement.setCalId(i+""+month+year);
-            list.add(calendarElement);
-        }
-
-        model.addAttribute("data", list);
-        model.addAttribute("monthData",month+"/1/"+year+"}");
-        model.addAttribute("mon",month+""+year);
 
         Calendar monthStart = new GregorianCalendar(year,month-1, 1);
         int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
         int day=monthStart.get(Calendar.DAY_OF_WEEK);
-        FareCalendar fareCalendar=new FareCalendar();
 
+        Map<String,CalendarElement> map=new HashMap<String,CalendarElement>();
+
+        for(int i=1;i<=max;i++) {
+            CalendarElement calendarElement = new CalendarElement();
+            calendarElement.setCalKey(i+"");
+            calendarElement.setCalValue("$"+i+100);
+            calendarElement.setCalId(i+""+10+2017);
+            map.put("cal"+i,calendarElement);
+        }
+
+        FareCalendar fareCalendar=new FareCalendar();
         fareCalendar.setYear(year);
         fareCalendar.setMonth(month);
         fareCalendar.setDayOfMonth(day);
         fareCalendar.setNumberOfDays(max);
+        fareCalendar.setDataMap(map);
 
+        model.addAttribute("monthData",month+"/1/"+year+"}");
+        model.addAttribute("mon",month+""+year);
         model.addAttribute("fareCalendar", fareCalendar);
-
         if(path.equals("return")){
             str="ajax1";
         }

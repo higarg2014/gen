@@ -48,11 +48,11 @@
 
         </c:choose>
 
-        <td onclick="getCalendarDate(${d})" class="${val}" id="${data[d-1].calId}">
+        <td  class="${val}" ${fareCalendar.dataMap['cal'.concat(d)].calId}>
             <c:if
                     test="${ (d<=max) && ((x>7)||(i<=x)) }">
                 <c:out value="${d}"/>
-                <small class="price">${data[d-1].calValue}</small>
+                <small class="price">${fareCalendar.dataMap['cal'.concat(d)].calValue}</small>
 
                 <c:set var="d" value="${d+1}"/>
             </c:if>

@@ -1,5 +1,7 @@
 package reports.generator.model;
 
+import java.util.Map;
+
 /**
  * Created by higarg on 10/26/17.
  */
@@ -12,6 +14,18 @@ public class FareCalendar {
     private int numberOfDays;
 
     private int dayOfMonth;
+
+    private Map<String,CalendarElement> dataMap;
+
+    public Map<String, CalendarElement> getDataMap() {
+        return dataMap;
+    }
+
+    public void setDataMap(Map<String, CalendarElement> dataMap) {
+        this.dataMap = dataMap;
+    }
+
+
 
     public int getYear() {
         return year;
