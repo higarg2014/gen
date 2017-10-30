@@ -3,8 +3,7 @@
 
 <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
                     <fmt:parseDate var="now"
-                                   value="${monthData}" type="date"
-                                   dateStyle="short" />
+                                   value="${monthData}" pattern="dd-MM-yyyy" />
                     <thead>
                     <tr>
                         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre1" onclick="loadPre()"><i class="material-icons">keyboard_arrow_left</i></a>
@@ -35,23 +34,39 @@
 
                         <c:choose>
 
-                        <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
+             <%--           <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                             <c:set var="val" value="range" />
                         </c:when>
 
                         <c:otherwise>
-                            <c:set var="val" value="hello" />
+                            <c:set var="val" value="blank" />
+                        </c:otherwise>--%>
+
+
+                      <%--  <c:when test="${d<fareCalendar.currentDay}">
+                            <c:set var="val" value="disabled"/>
+                        </c:when>--%>
+
+                        <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
+                            <c:set var="val" value="range"/>
+                        </c:when>
+
+                        <c:otherwise>
+                            <c:set var="val" value="blank"/>
                         </c:otherwise>
 
 
-                        </c:choose>
 
-                    <td onclick="getCalendarDate(${d})" class="${val}" id="${fareCalendar.dataMap['cal'.concat(d)].calId}">
+                    </c:choose>
+
+              <c:set var="calendar" value="${fareCalendar.dataMap['cal'.concat(d)]}"/>
+
+                    <td onclick="getCalendarDate(${d})" class="${val}" id="${calendar.calId}">
                         <c:if
                                 test="${ (d<=max) && ((x>7)||(i<=x)) }">
                             <c:out value="${d}" />
-                            <small class="price">${fareCalendar.dataMap['cal'.concat(d)].calValue}</small>
-
+                            <small class="price">${calendar.calValue}</small>
+                            <div class="return">10-12-2017</div>
                             <c:set var="d" value="${d+1}" />
                         </c:if>
 

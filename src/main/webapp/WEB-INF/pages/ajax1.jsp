@@ -3,8 +3,7 @@
 
 <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
     <fmt:parseDate var="now"
-                   value="${monthData}" type="date"
-                   dateStyle="short"/>
+                   value="${monthData}" pattern="dd-MM-yyyy"/>
     <thead>
     <tr>
         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre1" onclick="loadPre1()"><i
@@ -37,22 +36,36 @@
 
         <c:choose>
 
-        <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
-            <c:set var="val" value="range"/>
-        </c:when>
+            <c:when test="${d<fareCalendar.currentDay && fareCalendar.month==fareCalendar.currentMonth && fareCalendar.year==fareCalendar.currentYear}">
+                <c:set var="val" value="disabled"/>
+            </c:when>
 
-        <c:otherwise>
-            <c:set var="val" value="hello"/>
-        </c:otherwise>
+            <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
+                <c:set var="val" value="range"/>
+            </c:when>
 
+            <c:otherwise>
+                <c:set var="val" value="blank"/>
+            </c:otherwise>
 
         </c:choose>
 
-        <td  class="${val}" ${fareCalendar.dataMap['cal'.concat(d)].calId}>
+     <c:set var="calendar" value="${fareCalendar.dataMap['cal'.concat(d)]}"/>
+
+        <td  class="${val}" id="${calendar.calId}">
             <c:if
                     test="${ (d<=max) && ((x>7)||(i<=x)) }">
                 <c:out value="${d}"/>
-                <small class="price">${fareCalendar.dataMap['cal'.concat(d)].calValue}</small>
+                <c:choose>
+                <c:when test="${fareCalendar.month==fareCalendar.currentMonth}">
+               <c:if test="${d>=fareCalendar.currentDay}">
+                        <small class="price">${calendar.calValue}</small>
+                </c:if>
+                </c:when>
+                    <c:otherwise>
+                        <small class="price">${calendar.calValue}</small>
+                </c:otherwise>
+          </c:choose>
 
                 <c:set var="d" value="${d+1}"/>
             </c:if>

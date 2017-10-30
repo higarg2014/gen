@@ -15,6 +15,12 @@ public class FareCalendar {
 
     private int dayOfMonth;
 
+    private int currentMonth;
+
+    private int currentYear;
+
+    private int currentDay;
+
     private Map<String,CalendarElement> dataMap;
 
     public Map<String, CalendarElement> getDataMap() {
@@ -57,5 +63,29 @@ public class FareCalendar {
 
     public void setDayOfMonth(int dayOfMonth) {
         this.dayOfMonth = dayOfMonth;
+    }
+
+    public int getCurrentMonth() {
+        return currentMonth;
+    }
+
+    public void setCurrentMonth(int currentMonth) {
+        this.currentMonth = currentMonth;
+    }
+
+    public int getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    public void setCurrentDay(int currentDay) {
+        this.currentDay = currentDay;
     }
 }

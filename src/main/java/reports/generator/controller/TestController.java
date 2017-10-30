@@ -13,6 +13,7 @@ import reports.generator.model.CalendarElement;
 import reports.generator.model.FareCalendar;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.*;
 
@@ -25,12 +26,15 @@ public class TestController {
     JdbcTemplate jdbcTemplate;
 
     @RequestMapping("/calendar")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, ModelMap model) {
-        model.addAttribute("name", name);
-           List<CalendarElement> list=new ArrayList<CalendarElement>();
-        int month=10;
-        int year=2017;
-        Calendar monthStart = new GregorianCalendar(year, month-1, 1);
+    public String greeting(ModelMap model) {
+
+        LocalDateTime now = LocalDateTime.now();
+        int currentYear = now.getYear();
+        int currentMonth = now.getMonthValue();
+        int currentDay = now.getDayOfMonth();
+
+
+        Calendar monthStart = new GregorianCalendar(currentYear, currentMonth-1, 1);
         int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
         int day=monthStart.get(Calendar.DAY_OF_WEEK);
 
@@ -38,24 +42,24 @@ public class TestController {
 
         for(int i=1;i<=max;i++) {
             CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalKey(i+"");
             calendarElement.setCalValue("$"+i+100);
-            calendarElement.setCalId(i+""+10+2017);
+            calendarElement.setCalId(i+""+currentMonth+currentYear);
             map.put("cal"+i,calendarElement);
         }
 
         FareCalendar fareCalendar=new FareCalendar();
-        fareCalendar.setYear(year);
-        fareCalendar.setMonth(month);
+        fareCalendar.setYear(currentYear);
+        fareCalendar.setMonth(currentMonth);
         fareCalendar.setDayOfMonth(day);
         fareCalendar.setNumberOfDays(max);
         fareCalendar.setDataMap(map);
+        fareCalendar.setCurrentDay(currentDay);
+        fareCalendar.setCurrentMonth(currentMonth);
+        fareCalendar.setCurrentYear(currentYear);
 
            model.addAttribute("fareCalendar", fareCalendar);
-           model.addAttribute("monthData",month+"/1/"+year+"}");
-           model.addAttribute("mon",month+""+year);
-           model.addAttribute("currentDay","27");
-           model.addAttribute("map",map);
+           model.addAttribute("monthData","01-"+currentMonth+"-"+currentYear);
+
         return "welcome";
     }
 
@@ -71,15 +75,20 @@ public class TestController {
         int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
         int day=monthStart.get(Calendar.DAY_OF_WEEK);
 
+        LocalDateTime now = LocalDateTime.now();
+        int currentYear = now.getYear();
+        int currentMonth = now.getMonthValue();
+        int currentDay = now.getDayOfMonth();
+
         Map<String,CalendarElement> map=new HashMap<String,CalendarElement>();
 
         for(int i=1;i<=max;i++) {
             CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalKey(i+"");
             calendarElement.setCalValue("$"+i+100);
-            calendarElement.setCalId(i+""+10+2017);
+            calendarElement.setCalId(i+""+month+year);
             map.put("cal"+i,calendarElement);
         }
+
 
         FareCalendar fareCalendar=new FareCalendar();
         fareCalendar.setYear(year);
@@ -87,10 +96,13 @@ public class TestController {
         fareCalendar.setDayOfMonth(day);
         fareCalendar.setNumberOfDays(max);
         fareCalendar.setDataMap(map);
+        fareCalendar.setCurrentDay(currentDay);
+        fareCalendar.setCurrentMonth(currentMonth);
+        fareCalendar.setCurrentYear(currentYear);
 
-        model.addAttribute("monthData",month+"/1/"+year+"}");
-        model.addAttribute("mon",month+""+year);
+        model.addAttribute("monthData","01-"+month+"-"+year);
         model.addAttribute("fareCalendar", fareCalendar);
+
         if(path.equals("return")){
             str="ajax1";
         }

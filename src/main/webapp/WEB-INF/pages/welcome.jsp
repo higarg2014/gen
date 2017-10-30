@@ -60,6 +60,7 @@
         .calendar-table td:hover.active, .calendar-table td.active .price{background-color:#164880; color:#fff;}
         .calendar-table td.disabled, .calendar-table td.disabled:hover { color:#ccc; cursor:not-allowed; background-color:#fff;}
         .calendar-table td .price { display:block; font-weight:normal; font-size:10px; margin-top:0.8rem;color: green;}
+        .calendar-table td .return { display:block; font-weight:normal; font-size:8px; margin-top:0.8rem;color: black;}
         .prev-btn, .next-btn { border:1px solid #ddd; border-radius:5px; color:#333; padding:5px;}
         .prev-btn:hover, .next-btn:hover {background-color:#164880; color:#fff; border-color:#164880;}
         .prev-btn { float:left; margin-left:10px;}
@@ -75,8 +76,7 @@
             <li id="contentDiv">
                 <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
                     <fmt:parseDate var="now"
-                                   value="${monthData}" type="date"
-                                   dateStyle="short"/>
+                                   value="${monthData}"  pattern="dd-MM-yyyy"/>
                     <thead>
                     <tr>
                         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre" onclick="loadPre()"><i
@@ -107,11 +107,10 @@
                     </tr>
                     <tr>
                         </c:if>
-                            <c:set var="currentDay" value="26"/>
+
                         <c:choose>
 
-
-                        <c:when test="${d<currentDay}">
+                        <c:when test="${d<fareCalendar.currentDay}">
                             <c:set var="val" value="disabled"/>
                         </c:when>
 
@@ -120,33 +119,30 @@
                         </c:when>
 
                         <c:otherwise>
-                            <c:set var="val" value="hello"/>
+                            <c:set var="val" value="blank"/>
                         </c:otherwise>
-                        </c:choose>
 
-                        <td onclick="getCalendarDate(${d})" class="${val}" id="${fareCalendar.dataMap['cal'.concat(d)].calId}">
+                        </c:choose>
+                                <c:set var="calendar" value="${fareCalendar.dataMap['cal'.concat(d)]}"/>
+                        <td onclick="getCalendarDate(${d})" class="${val}" id="${calendar.calId}">
                             <c:if test="${ (d<=max) && ((x>7)||(i<=x)) }">
                                 <c:out value="${d}"/>
 
-                                <c:if test="${d>=currentDay}">
-                                    <small class="price">${fareCalendar.dataMap['cal'.concat(d)].calValue}</small>
+                                <c:if test="${d>=fareCalendar.currentDay}">
+                                    <small class="price">${calendar.calValue}</small>
+                                    <div class="return">10-12-2017</div>
                                 </c:if>
                                 <c:set var="d" value="${d+1}"/>
-
                             </c:if>
-
                         </td>
                         </c:forEach>
                 </table>
             </li>
             <li id="tableDiv">
             </li>
-
         </ul>
     </div>
 </div>
-
-
 
 </body>
 
@@ -161,6 +157,8 @@
     var selectedYear=year;
     var selectedId;
     function getCalendarDate(str){
+
+        var selectCount=1;
 
         console.log("month"+month);
         console.log("year"+year);
@@ -247,7 +245,7 @@
     function loadPre1(){
         if(selectCount>0 && selectCount<=12){
         if(selectedMonth==1){
-            year=year-1;
+            selectedYear=selectedYear-1;
             selectedMonth=12;
 
         }else {
@@ -271,7 +269,7 @@
     function loadNext1(){
         if(selectCount>=0 && selectCount<=11){
         if(selectedMonth==12){
-            year=year+1;
+            selectedYear=selectedYear+1;
             selectedMonth=1;
 
         }else {
