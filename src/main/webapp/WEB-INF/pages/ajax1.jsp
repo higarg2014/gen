@@ -8,7 +8,7 @@
     <tr>
         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre1" onclick="loadPre1()"><i
                 class="material-icons">keyboard_arrow_left</i></a>
-            <span class="my-text">Arrival: DEL-BLR    <fmt:formatDate pattern="MMMMM yyyy" value="${now}"/></span> <a
+            <span class="my-text"><small class="return">Cheapest Arrival DEL-BLR : 10-01-2018</small>&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy" value="${now}"/></span> <a
                     href="#" class="next-btn" id="next1" onclick="loadNext1()"><i class="material-icons">keyboard_arrow_right</i></a>
         </th>
     </tr>

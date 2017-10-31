@@ -7,7 +7,7 @@
                     <thead>
                     <tr>
                         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre1" onclick="loadPre()"><i class="material-icons">keyboard_arrow_left</i></a>
-                            <span class="my-text">Depart: BLR-DEL    <fmt:formatDate pattern="MMMMM yyyy" value="${now}" /></span> <a href="#" class="next-btn" id="next1" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
+                            <span class="my-text"><small class="return">Departure BLR-DEL : 31-10-2017</small>&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy" value="${now}" /></span> <a href="#" class="next-btn" id="next1" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
                     </tr>
 
                     <c:set var="i" value="${fareCalendar.dayOfMonth}"/>
@@ -66,7 +66,7 @@
                                 test="${ (d<=max) && ((x>7)||(i<=x)) }">
                             <c:out value="${d}" />
                             <small class="price">${calendar.calValue}</small>
-                            <div class="return">10-12-2017</div>
+                           <%-- <div class="return">10-12-2017</div>--%>
                             <c:set var="d" value="${d+1}" />
                         </c:if>
 
