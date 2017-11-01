@@ -34,17 +34,8 @@
 
                         <c:choose>
 
-             <%--           <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
-                            <c:set var="val" value="range" />
-                        </c:when>
-
-                        <c:otherwise>
-                            <c:set var="val" value="blank" />
-                        </c:otherwise>--%>
-
-
-                      <%--  <c:when test="${d<fareCalendar.currentDay}">
-                            <c:set var="val" value="disabled"/>
+                       <%-- <c:when test="${d==fareCalendar.departDay && fareCalendar.month==fareCalendar.departMonth && fareCalendar.year==fareCalendar.departYear}">
+                            <c:set var="val" value="active"/>
                         </c:when>--%>
 
                         <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">

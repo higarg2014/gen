@@ -21,6 +21,22 @@ public class FareCalendar {
 
     private int currentDay;
 
+
+    private int departDay;
+
+    private int departMonth;
+
+    private int departYear;
+
+
+    private int returnDay;
+
+    private int returnMonth;
+
+    private int returnYear;
+
+
+
     private Map<String,CalendarElement> dataMap;
 
     public Map<String, CalendarElement> getDataMap() {
@@ -87,5 +103,53 @@ public class FareCalendar {
 
     public void setCurrentDay(int currentDay) {
         this.currentDay = currentDay;
+    }
+
+    public int getDepartDay() {
+        return departDay;
+    }
+
+    public void setDepartDay(int departDay) {
+        this.departDay = departDay;
+    }
+
+    public int getDepartMonth() {
+        return departMonth;
+    }
+
+    public void setDepartMonth(int departMonth) {
+        this.departMonth = departMonth;
+    }
+
+    public int getDepartYear() {
+        return departYear;
+    }
+
+    public void setDepartYear(int departYear) {
+        this.departYear = departYear;
+    }
+
+    public int getReturnDay() {
+        return returnDay;
+    }
+
+    public void setReturnDay(int returnDay) {
+        this.returnDay = returnDay;
+    }
+
+    public int getReturnMonth() {
+        return returnMonth;
+    }
+
+    public void setReturnMonth(int returnMonth) {
+        this.returnMonth = returnMonth;
+    }
+
+    public int getReturnYear() {
+        return returnYear;
+    }
+
+    public void setReturnYear(int returnYear) {
+        this.returnYear = returnYear;
     }
 }

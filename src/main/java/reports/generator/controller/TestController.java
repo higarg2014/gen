@@ -38,11 +38,37 @@ public class TestController {
         int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
         int day=monthStart.get(Calendar.DAY_OF_WEEK);
 
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+
+
+        int departDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int departMonth = calendar.get(Calendar.MONTH);
+        int departYear = calendar.get(Calendar.YEAR);
+
+
         Map<String,CalendarElement> map=new HashMap<String,CalendarElement>();
 
         for(int i=1;i<=max;i++) {
             CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalValue("$"+i+100);
+
+
+
+            if(i>=currentDay) {
+                calendarElement.setCalValue("$" + i + 100);
+                calendarElement.setContent(true);
+                if(i==currentDay+1){
+                    calendarElement.setCalClass("active");
+                }
+
+            }
+            else{
+                calendarElement.setContent(false);
+                calendarElement.setCalClass("disabled");
+            }
+
             calendarElement.setCalId(i+""+currentMonth+currentYear);
             map.put("cal"+i,calendarElement);
         }
@@ -56,6 +82,11 @@ public class TestController {
         fareCalendar.setCurrentDay(currentDay);
         fareCalendar.setCurrentMonth(currentMonth);
         fareCalendar.setCurrentYear(currentYear);
+
+        fareCalendar.setDepartDay(departDay);
+        fareCalendar.setDepartMonth(departMonth+1);
+        fareCalendar.setDepartYear(departYear);
+
 
            model.addAttribute("fareCalendar", fareCalendar);
            model.addAttribute("monthData","01-"+currentMonth+"-"+currentYear);
@@ -90,6 +121,14 @@ public class TestController {
         }
 
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+
+
+        int departDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int departMonth = calendar.get(Calendar.MONTH);
+        int departYear = calendar.get(Calendar.YEAR);
         FareCalendar fareCalendar=new FareCalendar();
         fareCalendar.setYear(year);
         fareCalendar.setMonth(month);
@@ -100,6 +139,10 @@ public class TestController {
         fareCalendar.setCurrentMonth(currentMonth);
         fareCalendar.setCurrentYear(currentYear);
 
+
+        fareCalendar.setDepartDay(departDay);
+        fareCalendar.setDepartMonth(departMonth+1);
+        fareCalendar.setDepartYear(departYear);
         model.addAttribute("monthData","01-"+month+"-"+year);
         model.addAttribute("fareCalendar", fareCalendar);
 
@@ -109,6 +152,62 @@ public class TestController {
 
         return str;
     }
+
+    @ResponseBody
+    @RequestMapping("/test")
+    public FareCalendar test() {
+
+        LocalDateTime now = LocalDateTime.now();
+        int currentYear = now.getYear();
+        int currentMonth = now.getMonthValue();
+        int currentDay = now.getDayOfMonth();
+
+
+        Calendar monthStart = new GregorianCalendar(currentYear, currentMonth-1, 1);
+        int max=monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int day=monthStart.get(Calendar.DAY_OF_WEEK);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+
+
+        int departDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int departMonth = calendar.get(Calendar.MONTH);
+        int departYear = calendar.get(Calendar.YEAR);
+
+
+        Map<String,CalendarElement> map=new HashMap<String,CalendarElement>();
+
+        for(int i=1;i<=max;i++) {
+            CalendarElement calendarElement = new CalendarElement();
+            calendarElement.setCalValue("$"+i+100);
+            calendarElement.setCalId(i+""+currentMonth+currentYear);
+            map.put("cal"+i,calendarElement);
+        }
+
+        FareCalendar fareCalendar=new FareCalendar();
+        fareCalendar.setYear(currentYear);
+        fareCalendar.setMonth(currentMonth);
+        fareCalendar.setDayOfMonth(day);
+        fareCalendar.setNumberOfDays(max);
+        fareCalendar.setDataMap(map);
+        fareCalendar.setCurrentDay(currentDay);
+        fareCalendar.setCurrentMonth(currentMonth);
+        fareCalendar.setCurrentYear(currentYear);
+
+        fareCalendar.setDepartDay(departDay);
+        fareCalendar.setDepartMonth(departMonth+1);
+        fareCalendar.setDepartYear(departYear);
+
+
+/*        model.addAttribute("fareCalendar", fareCalendar);
+        model.addAttribute("monthData","01-"+currentMonth+"-"+currentYear);*/
+
+        return fareCalendar;
+    }
+
 
 
 

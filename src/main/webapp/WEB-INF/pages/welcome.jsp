@@ -10,8 +10,6 @@
 
     <style>
 
-
-        /* fallback */
         @font-face {
             font-family: 'Material Icons';
             font-style: normal;
@@ -65,6 +63,7 @@
         .prev-btn:hover, .next-btn:hover {background-color:#164880; color:#fff; border-color:#164880;}
         .prev-btn { float:left; margin-left:10px;}
         .next-btn { float:right; margin-right:10px;}
+        .holder{background-color: grey;color: white;margin-top: 10px;font-size: 16px;text-align: center;}
     </style>
 </head>
 <body>
@@ -81,7 +80,7 @@
                     <tr>
                         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre" onclick="loadPre()"><i
                                 class="material-icons">keyboard_arrow_left</i></a>
-                            <span class="my-text"><small class="return">Departure BLR-DEL : 31-10-2017</small>&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy"
+                            <span class="my-text"><small class="return">Departure BLR-DEL : 31-10-2017</small>&nbsp;&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy"
                                                                                      value="${now}"/></span>
                             <a class="next-btn" id="next" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a>
                         </th>
@@ -110,9 +109,13 @@
 
                         <c:choose>
 
-                        <c:when test="${d<fareCalendar.currentDay}">
+                        <c:when test="${d<fareCalendar.currentDay && fareCalendar.month==fareCalendar.currentMonth && fareCalendar.year==fareCalendar.currentYear}">
                             <c:set var="val" value="disabled"/>
                         </c:when>
+
+                            <c:when test="${d==fareCalendar.departDay && fareCalendar.month==fareCalendar.departMonth && fareCalendar.year==fareCalendar.departYear}">
+                                <c:set var="val" value="active"/>
+                            </c:when>
 
                         <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                             <c:set var="val" value="range"/>
@@ -130,7 +133,6 @@
 
                                 <c:if test="${d>=fareCalendar.currentDay}">
                                     <small class="price">${calendar.calValue}</small>
-                                    <%--<div class="return">10-12-2017</div>--%>
                                 </c:if>
                                 <c:set var="d" value="${d+1}"/>
                             </c:if>
@@ -146,7 +148,7 @@
                     <tr>
                         <th colspan="7" class="my-header"><a href="#" class="prev-btn" id="pre1" onclick="loadPre1()"><i
                                 class="material-icons">keyboard_arrow_left</i></a>
-                            <span class="my-text"><small class="return">Cheapest Arrival DEL-BLR : 10-01-2018</small>&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy" value="${now}"/></span> <a
+                            <span class="my-text"><small class="return">Cheapest Arrival DEL-BLR : 10-01-2018</small>&nbsp;&nbsp;&nbsp;<fmt:formatDate pattern="MMMMM yyyy" value="${now}"/></span> <a
                                     href="#" class="next-btn" id="next1" onclick="loadNext1()"><i class="material-icons">keyboard_arrow_right</i></a>
 
                         </th>
@@ -156,7 +158,6 @@
                     <c:set var="i" value="${fareCalendar.dayOfMonth}"/>
                     <c:set var="max" value="${fareCalendar.numberOfDays}"/>
                     <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
-
                     <tr>
                         <c:forEach items="${days}" var="day">
                             <th width="14%">${day}</th>
@@ -177,12 +178,14 @@
                         <c:choose>
 
                         <c:when test="${d<fareCalendar.currentDay && fareCalendar.month==fareCalendar.currentMonth && fareCalendar.year==fareCalendar.currentYear}">
-                            <c:set var="val" value="disabled"/>
+                                <c:set var="val" value="disabled"/>
                         </c:when>
 
                         <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                             <c:set var="val" value="range"/>
                         </c:when>
+
+
 
                         <c:otherwise>
                             <c:set var="val" value="blank"/>
@@ -216,18 +219,22 @@
                 </table>
             </li>
         </ul>
+
+        <div class="holder">Round Trip Price BLR-DEL $ 4000</div>
     </div>
 </div>
 
 </body>
 
 <script>
+
     var count=0;
     var selectCount=0;
     var d = new Date();
     var currentDay=d.getDay();
     var month = d.getMonth()+1;
     var year=d.getFullYear();
+    var selectedDay;
     var selectedMonth=month;
     var selectedYear=year;
     var selectedId;
@@ -247,7 +254,7 @@
         $("#"+ide).removeClass("range");
         $("#"+ide).addClass("active");
         selectedId=str+""+month+""+year;
-        var selectedDay=str;
+        selectedDay=str;
         var actionName = "${pageContext.request.contextPath}/view/ajax?month="+month+"&year="+year+"&path=return";
         $.ajax({
             url:actionName,

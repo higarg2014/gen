@@ -11,6 +11,11 @@ public class CalendarElement {
 
     private String calId;
 
+    private String calClass;
+
+    private boolean content;
+
+
 
     public String getCalKey() {
         return calKey;
@@ -34,5 +39,21 @@ public class CalendarElement {
 
     public void setCalId(String calId) {
         this.calId = calId;
+    }
+
+    public String getCalClass() {
+        return calClass;
+    }
+
+    public void setCalClass(String calClass) {
+        this.calClass = calClass;
+    }
+
+    public boolean isContent() {
+        return content;
+    }
+
+    public void setContent(boolean content) {
+        this.content = content;
     }
 }
