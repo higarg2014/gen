@@ -69,7 +69,7 @@ public class TestController {
                 calendarElement.setCalClass("disabled");
             }
 
-            calendarElement.setCalId(i+""+currentMonth+currentYear);
+            //calendarElement.setCalId(i+""+currentMonth+currentYear);
             map.put("cal"+i,calendarElement);
         }
 
@@ -116,7 +116,7 @@ public class TestController {
         for(int i=1;i<=max;i++) {
             CalendarElement calendarElement = new CalendarElement();
             calendarElement.setCalValue("$"+i+100);
-            calendarElement.setCalId(i+""+month+year);
+            //calendarElement.setCalId(i+""+month+year);
             map.put("cal"+i,calendarElement);
         }
 
@@ -183,7 +183,7 @@ public class TestController {
         for(int i=1;i<=max;i++) {
             CalendarElement calendarElement = new CalendarElement();
             calendarElement.setCalValue("$"+i+100);
-            calendarElement.setCalId(i+""+currentMonth+currentYear);
+            //calendarElement.setCalId(i+""+currentMonth+currentYear);
             map.put("cal"+i,calendarElement);
         }
 

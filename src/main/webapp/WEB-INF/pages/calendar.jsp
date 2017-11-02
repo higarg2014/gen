@@ -10,6 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Title</title>
     <style>
         @font-face {
@@ -85,7 +86,7 @@
 <div class="calendar-container">
 
     <div class="calendar-wrapper">
-        <ul>
+        <ul id="contentDiv">
             <c:forEach items="${dataMap}" var="data" varStatus="status">
             <li>
                 <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
@@ -95,18 +96,18 @@
                     <tr>
 
                         <c:choose>
-                            <c:when test="${status.index==0}">
-                        <th colspan="7" class="my-header"><a href="#" class="prev-btn"><i class="material-icons">keyboard_arrow_left</i></a>
-                            <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
-                        </span> <a href="#" class="next-btn hidden-sm"><i class="material-icons">keyboard_arrow_right</i></a></th>
-                            </c:when>
-                            <c:otherwise>
-                        <th colspan="7" class="my-header"><a href="#" class="prev-btn hidden-sm">
-                            <i class="material-icons">keyboard_arrow_left</i></a> <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
-                         </span> <a href="#" class="next-btn"><i class="material-icons">keyboard_arrow_right</i></a></th>
-                            </c:otherwise>
+                        <c:when test="${status.index==0}">
+                            <th colspan="7" class="my-header"><a href="#" class="prev-btn" onclick="loadPre()"><i class="material-icons">keyboard_arrow_left</i></a>
+                                <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
+                        </span> <a href="#" class="next-btn hidden-sm" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
+                        </c:when>
+                        <c:otherwise>
+                            <th colspan="7" class="my-header"><a href="#" class="prev-btn hidden-sm" onclick="loadPre()">
+                                <i class="material-icons">keyboard_arrow_left</i></a> <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
+                         </span> <a href="#" class="next-btn" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
+                        </c:otherwise>
 
-                 </c:choose>
+                        </c:choose>
 
                     </tr>
                     <c:set var="i" value="${data.startDayOfMonth}"/>
@@ -130,7 +131,7 @@
 
                     <c:forEach var="x" begin="1" end="${end}">
                     <c:if
-                            test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5)}">
+                            test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5 )}">
                     </tr>
                     <tr>
                         </c:if>
@@ -138,67 +139,17 @@
                         <c:choose>
                             <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                                 <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
-
-                        <td class="${calendar.calClass}" id="${calendar.calId}">
+                        <td  id="${calendar.calId}" onclick="getCalendarDate(${d},${calendar.calId})">
 
                                 <c:out value="${d}"/>
                                 <small class="price">${calendar.calValue}</small>
                                 <c:set var="d" value="${d+1}"/>
                         </td>
-
                             </c:when>
-
                             <c:otherwise><td></td></c:otherwise>
-
                             </c:choose>
-
                         </c:forEach>
 
-
-                   <%-- <tr>
-                        <td class="disabled">1</td>
-                        <td class="disabled">2</td>
-                    </tr>
-                    <tr>
-                        <td class="disabled">3</td>
-                        <td class="disabled">4</td>
-                        <td class="disabled">5</td>
-                        <td class="disabled">6</td>
-                        <td class="disabled">7</td>
-                        <td class="disabled">8</td>
-                        <td class="disabled">9</td>
-                    </tr>
-                    <tr>
-                        <td class="disabled">10</td>
-                        <td class="disabled">11</td>
-                        <td class="disabled">12</td>
-                        <td class="disabled">13</td>
-                        <td class="disabled">14</td>
-                        <td class="disabled">15</td>
-                        <td class="disabled">16</td>
-                    </tr>
-                    <tr>
-                        <td class="disabled">17</td>
-                        <td class="disabled">18</td>
-                        <td class="disabled">19</td>
-                        <td class="active"><div class="flight-lebal">DEP</div>20</td>
-                        <td class="range">21<small class="price">$41589</small></td>
-                        <td class="range">22<small class="price">$41589</small></td>
-                        <td class="range">23<small class="price">$41589</small></td>
-                    </tr>
-                    <tr>
-                        <td class="range">24</td>
-                        <td class="range">25</td>
-                        <td class="range">26 <small class="price">$41589</small></td>
-                        <td class="range">27 <small class="price">$41589</small></td>
-                        <td class="range">28 <small class="price">$41589</small></td>
-                        <td class="range">29 <small class="price">$41589</small></td>
-                        <td class="active"><div class="flight-lebal">ARV</div>30 <small class="price">$41589</small></td>
-                    </tr>
-                    <tr>
-                        <td>31 <small class="price">$ 41589</small></td>
-
-                    </tr>--%>
                     </tbody>
                 </table>
             </li>
@@ -208,4 +159,106 @@
 </div>
 
 </body>
+
+<script>
+
+    var count=0;
+    var departureId=0;
+    var selectedDepartureId=0;
+    var returnId=0;
+    var selectedReturnId=0;
+    function getCalendarDate(d,blockId){
+
+        if(count>=0 && count<6){
+
+            if(selectedDepartureId!=blockId && departureId==0 ){
+           // && departureId!=blockId && blockId>departureId
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            $.ajax({
+                url:actionName,
+                type:"GET",
+                //data:"URL",
+                success:function(result){
+                    console.log(result);
+                    $("#contentDiv").html(result);
+                    selectedDepartureId=blockId;
+                    departureId=blockId;
+                    $("#"+selectedDepartureId).removeClass("active");
+                    $("#"+selectedDepartureId).addClass("active");
+
+                    $("td").filter(function() {
+                        return $(this).attr("id") < blockId;
+                    }).addClass("disabled");
+
+                    departureId=blockId;
+                    $("#"+selectedReturnId).removeClass("active");
+                    returnId=0;
+
+                }
+            });
+            }
+            else if(blockId > departureId && returnId==0){
+
+                $("#"+blockId).addClass("active");
+                selectedReturnId=blockId;
+                returnId=blockId;
+                departureId=0;
+                $("td").filter(function() {
+                    var obj=$(this).attr("id");
+                    return obj>selectedDepartureId && obj<selectedReturnId;
+                }).addClass("range");
+
+                $("td").filter(function() {
+                    return $(this).attr("id") < selectedDepartureId;
+                 }).removeClass("disabled");
+
+
+            }
+
+
+
+        }
+    }
+
+
+    function loadNext(){
+
+        if(count>=0 && count<6){
+
+            count=count+1;
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            $.ajax({
+                url:actionName,
+                type:"GET",
+                //data:"URL",
+                success:function(result){
+                    console.log(result);
+                    $("#contentDiv").html(result);
+
+                }
+            });
+
+        }
+    }
+
+
+    function loadPre(){
+        if(count>=0 && count<6){
+
+            count=count-1;
+
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            $.ajax({
+                url:actionName,
+                type:"GET",
+                //data:"URL",
+                success:function(result){
+                    console.log(result);
+                    $("#contentDiv").html(result);
+
+                }
+            });
+        }
+    }
+</script>
 </html>
