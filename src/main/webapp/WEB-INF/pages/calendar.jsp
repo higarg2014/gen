@@ -169,6 +169,7 @@
     var selectedDepartureId=${minDepartureId};
     var returnId=0;
     var selectedReturnId=0;
+    var preCount=0;
 
     function init(){
         $("td").filter(function() {
@@ -190,18 +191,17 @@
         if(count>=0 && count<6){
 
             if(blockId>=minDepartureId && selectedDepartureId!=blockId && departureId==0 ){
-           // && departureId!=blockId && blockId>departureId
+                preCount=count;
             var actionName = "${pageContext.request.contextPath}/ajax?count="+count+"&departureId="+blockId;
             $.ajax({
                 url:actionName,
                 type:"GET",
                 //data:"URL",
                 success:function(result){
-                    console.log(result);
+                    //console.log(result);
                     $("#contentDiv").html(result);
                     selectedDepartureId=blockId;
                     departureId=blockId;
-                    //$("#"+selectedDepartureId).removeClass("active");
                     $("#"+selectedDepartureId).addClass("active");
 
                     $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
@@ -229,6 +229,7 @@
                 returnId=blockId;
 
                 departureId=0;
+                preCount=0;
 
                 $("td").filter(function() {
                     var obj=$(this).attr("id");
@@ -259,7 +260,7 @@
                 type:"GET",
                 //data:"URL",
                 success:function(result){
-                    console.log(result);
+                    //console.log(result);
                     $("#contentDiv").html(result);
 
                     $("#"+selectedDepartureId).addClass("active");
@@ -296,7 +297,7 @@
 
 
     function loadPre(){
-        if(count>0 && count<6){
+        if(count>preCount && count>0 && count<6){
 
             count=count-1;
 
@@ -306,7 +307,7 @@
                 type:"GET",
                 //data:"URL",
                 success:function(result){
-                    console.log(result);
+                  //  console.log(result);
                     $("#contentDiv").html(result);
                     $("#"+selectedDepartureId).addClass("active");
 
