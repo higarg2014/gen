@@ -58,15 +58,15 @@ public class TestController {
 
             if(i>=currentDay) {
                 calendarElement.setCalValue("$" + i + 100);
-                calendarElement.setContent(true);
+                /*calendarElement.setContent(true);
                 if(i==currentDay+1){
                     calendarElement.setCalClass("active");
-                }
+                }*/
 
             }
             else{
-                calendarElement.setContent(false);
-                calendarElement.setCalClass("disabled");
+              /*  calendarElement.setContent(false);
+                calendarElement.setCalClass("disabled");*/
             }
 
             //calendarElement.setCalId(i+""+currentMonth+currentYear);

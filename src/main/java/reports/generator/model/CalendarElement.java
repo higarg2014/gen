@@ -5,25 +5,15 @@ package reports.generator.model;
  */
 public class CalendarElement {
 
-    private String calKey;
+
 
     private String calValue;
 
     private int calId;
 
-    private String calClass;
-
-    private boolean content;
 
 
 
-    public String getCalKey() {
-        return calKey;
-    }
-
-    public void setCalKey(String calKey) {
-        this.calKey = calKey;
-    }
 
     public String getCalValue() {
         return calValue;
@@ -34,22 +24,6 @@ public class CalendarElement {
     }
 
 
-
-    public String getCalClass() {
-        return calClass;
-    }
-
-    public void setCalClass(String calClass) {
-        this.calClass = calClass;
-    }
-
-    public boolean isContent() {
-        return content;
-    }
-
-    public void setContent(boolean content) {
-        this.content = content;
-    }
 
     public int getCalId() {
         return calId;

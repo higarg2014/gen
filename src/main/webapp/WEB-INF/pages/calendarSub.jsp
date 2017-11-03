@@ -28,7 +28,7 @@
 
             <c:set var="max" value="${data.numberOfDays}"/>
 
-            <c:set var="end" value="${i>5?42:35}"/>
+            <c:set var="end" value="${i>5 && max>30?42:35}"/>
 
             <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
 
@@ -45,7 +45,7 @@
 
             <c:forEach var="x" begin="1" end="${end}">
             <c:if
-                    test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5)}">
+                    test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) ||  (x==36 && i>5 && max>30)}">
             </tr>
             <tr>
                 </c:if>
@@ -54,8 +54,8 @@
                 <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                     <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
 
-                <td  id="${calendar.calId}" onclick="getCalendarDate(${d},${calendar.calId})">
-
+                <td  id="${calendar.calId}"  onclick="getCalendarDate(${calendar.calId})">
+                    <div class="flight-label"></div>
                     <c:out value="${d}"/>
                     <small class="price">${calendar.calValue}</small>
                     <c:set var="d" value="${d+1}"/>

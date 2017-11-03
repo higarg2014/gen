@@ -73,7 +73,7 @@
         .prev-btn:hover, .next-btn:hover {color:#164880; }
         .prev-btn { float:left; margin-left:10px;}
         .next-btn { float:right; margin-right:10px;}
-        .calendar-table td.disabled { border:none;}
+        .calendar-table td.disabled { /*border:none;*/}
         .calendar-table th.my-header { border:none; height:30px;}
         .border-left-0 { border-left:none !important;}
         .border-right-0 { border-right:none !important;}
@@ -114,7 +114,7 @@
 
                     <c:set var="max" value="${data.numberOfDays}"/>
 
-                    <c:set var="end" value="${i>5?42:35}"/>
+                    <c:set var="end" value="${i>5 && max>30?42:35}"/>
 
                     <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
 
@@ -131,7 +131,7 @@
 
                     <c:forEach var="x" begin="1" end="${end}">
                     <c:if
-                            test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5 )}">
+                            test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5 && max>30)}">
                     </tr>
                     <tr>
                         </c:if>
@@ -139,8 +139,8 @@
                         <c:choose>
                             <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                                 <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
-                        <td  id="${calendar.calId}" onclick="getCalendarDate(${d},${calendar.calId})">
-
+                        <td  id="${calendar.calId}"  onclick="getCalendarDate(${calendar.calId})">
+                            <div></div>
                                 <c:out value="${d}"/>
                                 <small class="price">${calendar.calValue}</small>
                                 <c:set var="d" value="${d+1}"/>
@@ -163,17 +163,34 @@
 <script>
 
     var count=0;
-    var departureId=0;
-    var selectedDepartureId=0;
+    var minDepartureId=${minDepartureId};
+    var departureId=${minDepartureId};
+    var selectedDepartureId=${minDepartureId};
     var returnId=0;
     var selectedReturnId=0;
-    function getCalendarDate(d,blockId){
+
+    function init(){
+        $("td").filter(function() {
+            return $(this).attr("id") <minDepartureId;
+        }).addClass("disabled");
+    }
+
+    $( document ).ready(function() {
+
+        $("#"+selectedDepartureId).addClass("active");
+
+        $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
+
+        init();
+
+    });
+    function getCalendarDate(blockId){
 
         if(count>=0 && count<6){
 
-            if(selectedDepartureId!=blockId && departureId==0 ){
+            if(blockId>=minDepartureId && selectedDepartureId!=blockId && departureId==0 ){
            // && departureId!=blockId && blockId>departureId
-            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count+"&departureId="+blockId;
             $.ajax({
                 url:actionName,
                 type:"GET",
@@ -183,26 +200,35 @@
                     $("#contentDiv").html(result);
                     selectedDepartureId=blockId;
                     departureId=blockId;
-                    $("#"+selectedDepartureId).removeClass("active");
+                    //$("#"+selectedDepartureId).removeClass("active");
                     $("#"+selectedDepartureId).addClass("active");
+
+                    $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
 
                     $("td").filter(function() {
                         return $(this).attr("id") < blockId;
                     }).addClass("disabled");
 
-                    departureId=blockId;
                     $("#"+selectedReturnId).removeClass("active");
                     returnId=0;
+                   //selectedReturnId=0;
+                    init();
 
                 }
             });
             }
-            else if(blockId > departureId && returnId==0){
+            else if(blockId>=minDepartureId && blockId > departureId && returnId==0){
 
-                $("#"+blockId).addClass("active");
                 selectedReturnId=blockId;
+
+                $("#"+selectedReturnId).addClass("active");
+
+                $("#"+selectedReturnId).find("div").addClass("flight-lebal").html("ARV");
+
                 returnId=blockId;
+
                 departureId=0;
+
                 $("td").filter(function() {
                     var obj=$(this).attr("id");
                     return obj>selectedDepartureId && obj<selectedReturnId;
@@ -212,7 +238,7 @@
                     return $(this).attr("id") < selectedDepartureId;
                  }).removeClass("disabled");
 
-
+                init();
             }
 
 
@@ -226,7 +252,7 @@
         if(count>=0 && count<6){
 
             count=count+1;
-            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count+"&departureId="+selectedDepartureId;
             $.ajax({
                 url:actionName,
                 type:"GET",
@@ -234,6 +260,32 @@
                 success:function(result){
                     console.log(result);
                     $("#contentDiv").html(result);
+
+                    $("#"+selectedDepartureId).addClass("active");
+
+                    $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
+
+                    $("td").filter(function() {
+                        return $(this).attr("id") < selectedDepartureId;
+                    }).addClass("disabled");
+
+                    if(departureId==0 && selectedDepartureId>0 && selectedReturnId>0) {
+                        $("#"+selectedReturnId).addClass("active");
+                        $("td").filter(function () {
+                            var obj = $(this).attr("id");
+                            return obj > selectedDepartureId && obj < selectedReturnId;
+                        }).addClass("range");
+
+                        $("td").filter(function() {
+                            return $(this).attr("id") < selectedDepartureId;
+                        }).removeClass("disabled");
+
+
+                        $("#"+selectedReturnId).find("div").addClass("flight-lebal").html("ARV");
+                        init();
+                    }
+
+
 
                 }
             });
@@ -247,7 +299,7 @@
 
             count=count-1;
 
-            var actionName = "${pageContext.request.contextPath}/ajax?count="+count;
+            var actionName = "${pageContext.request.contextPath}/ajax?count="+count+"&departureId="+selectedDepartureId;
             $.ajax({
                 url:actionName,
                 type:"GET",
@@ -255,6 +307,30 @@
                 success:function(result){
                     console.log(result);
                     $("#contentDiv").html(result);
+                    $("#"+selectedDepartureId).addClass("active");
+
+                    $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
+
+                    $("td").filter(function() {
+                        return $(this).attr("id") < selectedDepartureId;
+                    }).addClass("disabled");
+
+                    if(departureId==0 && selectedDepartureId>0 && selectedReturnId>0) {
+                        $("#"+selectedReturnId).addClass("active");
+                        $("td").filter(function () {
+                            var obj = $(this).attr("id");
+                            return obj > selectedDepartureId && obj < selectedReturnId;
+                        }).addClass("range");
+
+                        $("td").filter(function() {
+                            return $(this).attr("id") < selectedDepartureId;
+                        }).removeClass("disabled");
+
+                        $("#"+selectedReturnId).find("div").addClass("flight-lebal").html("ARV");
+                        init();
+                    }
+
+
 
                 }
             });

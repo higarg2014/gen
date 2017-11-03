@@ -238,6 +238,9 @@
     var selectedMonth=month;
     var selectedYear=year;
     var selectedId;
+
+
+
     function getCalendarDate(str){
 
         var selectCount=1;
