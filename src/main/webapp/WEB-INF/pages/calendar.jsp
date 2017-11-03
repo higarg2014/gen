@@ -69,6 +69,7 @@
         .calendar-table td.disabled, .calendar-table td.disabled:hover { color:#ccc; cursor:not-allowed; background-color:#fff;}
         .calendar-table td .price { display:block; font-weight:normal; font-size:9px !important; margin-top:0.8rem; color:#777; font-size:15px;}
         .prev-btn, .next-btn { color:#333}
+        .prev-btn-disable, .next-btn-disable { color:#ccc}
         .prev-btn i, .next-btn i{ font-size:32px;}
         .prev-btn:hover, .next-btn:hover {color:#164880; }
         .prev-btn { float:left; margin-left:10px;}
@@ -249,7 +250,7 @@
 
     function loadNext(){
 
-        if(count>=0 && count<6){
+        if(count>=0 && count<5){
 
             count=count+1;
             var actionName = "${pageContext.request.contextPath}/ajax?count="+count+"&departureId="+selectedDepartureId;
@@ -295,7 +296,7 @@
 
 
     function loadPre(){
-        if(count>=0 && count<6){
+        if(count>0 && count<6){
 
             count=count-1;
 
