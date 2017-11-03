@@ -175,6 +175,13 @@
         $("td").filter(function() {
             return $(this).attr("id") <minDepartureId;
         }).addClass("disabled");
+
+        if(count==0){
+            $(".prev-btn").addClass("prev-btn-disable");
+        }
+        if(count==5){
+            $(".next-btn").addClass("next-btn-disable");
+        }
     }
 
     $( document ).ready(function() {
@@ -184,6 +191,7 @@
         $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
 
         init();
+
 
     });
     function getCalendarDate(blockId){
@@ -250,7 +258,7 @@
 
 
     function loadNext(){
-
+        init();
         if(count>=0 && count<5){
 
             count=count+1;
@@ -297,6 +305,7 @@
 
 
     function loadPre(){
+        init();
         if(count>preCount && count>0 && count<6){
 
             count=count-1;
