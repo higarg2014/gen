@@ -11,14 +11,14 @@
 
                 <c:choose>
                     <c:when test="${status.index==0}">
-                        <th colspan="7" class="my-header"><a href="#" class="prev-btn" onclick="loadPre()"><i class="material-icons">keyboard_arrow_left</i></a>
+                        <th colspan="7" class="my-header"><a href="#" class="prev-btn" onclick="loadCalendar('pre')"><i class="material-icons">keyboard_arrow_left</i></a>
                             <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
-                        </span> <a href="#" class="next-btn hidden-sm" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
+                        </span> <a href="#" class="next-btn hidden-sm" onclick="loadCalendar('next')"><i class="material-icons">keyboard_arrow_right</i></a></th>
                     </c:when>
                     <c:otherwise>
-                        <th colspan="7" class="my-header"><a href="#" class="prev-btn hidden-sm" onclick="loadPre()">
+                        <th colspan="7" class="my-header"><a href="#" class="prev-btn hidden-sm" onclick="loadCalendar('pre')">
                             <i class="material-icons">keyboard_arrow_left</i></a> <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
-                         </span> <a href="#" class="next-btn" onclick="loadNext()"><i class="material-icons">keyboard_arrow_right</i></a></th>
+                         </span> <a href="#" class="next-btn" onclick="loadCalendar('next')"><i class="material-icons">keyboard_arrow_right</i></a></th>
                     </c:otherwise>
 
                 </c:choose>

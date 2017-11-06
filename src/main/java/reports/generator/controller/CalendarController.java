@@ -124,25 +124,8 @@ public class CalendarController {
             // int minDepartureId=0;
             Calendar calendar = Calendar.getInstance();
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-           // int maxCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            //calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-            /*int j = 0;
-            if (currentDay == maxCurrentMonth) {
-                j = currentDay + 1;
-                count = count + 1;
-                day1 = 1;
-                day2 = 1;
-            } else {
-                j = currentDay + 1;
-                day1 = currentDay;
-                day2 = 1;
-
-            }*/
-           /* if(count==0){
-                day1 = currentDay;
-            }*/
-
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
             calendar.add(Calendar.MONTH, count);
             month1 = calendar.get(Calendar.MONTH) + 1;
             year1 = calendar.get(Calendar.YEAR);
