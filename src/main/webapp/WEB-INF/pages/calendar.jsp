@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: higarg
-  Date: 11/1/17
-  Time: 9:35 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -13,11 +6,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/calendar.css">
     <title>Title</title>
-
 </head>
 <body>
 <div class="calendar-container">
-
     <div class="calendar-wrapper">
         <ul id="contentDiv">
             <c:forEach items="${dataMap}" var="data" varStatus="status">
@@ -68,7 +59,6 @@
                     </tr>
                     <tr>
                         </c:if>
-
                         <c:choose>
                             <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
                                 <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
@@ -82,7 +72,6 @@
                             <c:otherwise><td></td></c:otherwise>
                             </c:choose>
                         </c:forEach>
-
                     </tbody>
                 </table>
             </li>
