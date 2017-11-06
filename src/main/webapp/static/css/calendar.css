@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v29/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+
+@media (min-width:240px) and (max-width:768px)  {
+    .calendar-wrapper ul li { display:none;}
+    .calendar-wrapper ul li:first-child{ display:block;}
+    .calendar-table td { height:40px;}
+    .calendar-table th { height:25px;}
+
+}
+
+@media (min-width: 1024px) {
+    .calendar-wrapper ul {display:flex;}
+    .calendar-wrapper ul li {width:49%; margin-right:1rem;}
+    .hidden-sm { display:none;}
+}
+.my-header { font-size:16px !important;}
+.my-text { margin-top:8px; display:inline-block;}
+.calendar-container { position:relative;}
+.calendar-wrapper { position:absolute; top:100%; left:0; width:100%;}
+
+.calendar-wrapper ul { list-style:none; margin:0; padding:0;}
+.calendar-table {border-collapse:collapse; font-family:'Helvetica', Arial, Helvetica, sans-serif;}
+.calendar-table td, .calendar-table th { padding:10px 0px;text-align:center; font-weight:bold; cursor:pointer; font-size:16px; color:#444;}
+.calendar-table td { height:51px;}
+.calendar-table th { height:30px;}
+.calendar-table th { font-size:14px;}
+.calendar-table td {border:1px solid #ddd; }
+.calendar-table th {border-top:1px solid #ddd; border-bottom:1px solid #ddd;}
+.calendar-table td:hover, .calendar-table td.range { background-color:#e7f2fb;}
+.calendar-table td:hover.active, .calendar-table td.active {background-color:#164880; color:#fff;}
+.calendar-table td.active .price { color:#fff;}
+.calendar-table td.disabled, .calendar-table td.disabled:hover { color:#ccc; cursor:not-allowed; background-color:#fff;}
+.calendar-table td .price { display:block; font-weight:normal; font-size:9px !important; margin-top:0.8rem; color:#777; font-size:15px;}
+.prev-btn, .next-btn { color:#333}
+.prev-btn-disable, .next-btn-disable { color:#ccc}
+.prev-btn i, .next-btn i{ font-size:32px;}
+.prev-btn:hover, .next-btn:hover {color:#164880; }
+.prev-btn { float:left; margin-left:10px;}
+.next-btn { float:right; margin-right:10px;}
+.calendar-table td.disabled { /*border:none;*/}
+.calendar-table th.my-header { border:none; height:30px;}
+.border-left-0 { border-left:none !important;}
+.border-right-0 { border-right:none !important;}
+.border-top-0 { border-top:none !important;}
+.border-bottom-0 { border-bottom:none !important;}
+.flight-lebal{font-size:10px !important; padding-bottom: 5px;}
+.deal-button{color: #164880;color:#fff;}
+.button {
+    background-color: #164880; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 12px;
+    float: right;
+}

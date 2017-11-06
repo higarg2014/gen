@@ -1,6 +1,5 @@
 package reports.generator.controller;
 
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +26,7 @@ public class CalendarController {
         int startMonth1, startMonth2;
         int maxMonth1, maxMonth2;
         int count = 0;
-        int minDepartureId = 0;
+        int startId = 0;
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
         int maxCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -35,15 +34,10 @@ public class CalendarController {
 
         int j = 0;
         if (currentDay == maxCurrentMonth) {
-            j = currentDay + 1;
+            j = 1;
             count = count + 1;
-            day1 = 1;
-            day2 = 1;
         } else {
             j = currentDay + 1;
-            day1 = currentDay;
-            day2 = 1;
-
         }
 
         calendar.add(Calendar.MONTH, count);
@@ -58,15 +52,19 @@ public class CalendarController {
         year2 = calendar.get(Calendar.YEAR);
         startMonth2 = calendar.get(Calendar.DAY_OF_WEEK);
         maxMonth2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        minDepartureId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (j < 10 ? "0" : "") + j);
+
+        startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (j < 10 ? "0" : "") + j);
 
 
         CalendarFare fareCalendar = new CalendarFare();
         Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
-        for (int i = day1 + 1; i <= maxMonth1; i++) {
+        for (int i = 1; i <= maxMonth1; i++) {
+            int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
             CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalValue("$" + new Random().nextInt(10000));
-            calendarElement.setCalId(Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i));
+            if(startId<nextId) {
+                calendarElement.setCalValue("$" + new Random().nextInt(10000));
+            }
+            calendarElement.setCalId(nextId);
             map.put("cal" + i, calendarElement);
         }
         fareCalendar.setDataMap(map);
@@ -80,9 +78,12 @@ public class CalendarController {
         CalendarFare fareCalendar1 = new CalendarFare();
         Map<String, CalendarElement> map1 = new HashMap<String, CalendarElement>();
         for (int i = day2; i <= maxMonth2; i++) {
+            int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
             CalendarElement calendarElement = new CalendarElement();
-            calendarElement.setCalValue("$" + new Random().nextInt(10000));
-            calendarElement.setCalId(Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i));
+            if(startId<nextId) {
+                calendarElement.setCalValue("$" + new Random().nextInt(10000));
+            }
+            calendarElement.setCalId(nextId);
             map1.put("cal" + i, calendarElement);
         }
         fareCalendar1.setDataMap(map1);
@@ -93,7 +94,7 @@ public class CalendarController {
 
 
         model.addAttribute("dataMap", data);
-        model.addAttribute("minDepartureId", minDepartureId);
+        model.addAttribute("minDepartureId", startId);
 
 
         return "calendar";
@@ -120,8 +121,7 @@ public class CalendarController {
             int year1, year2;
             int startMonth1, startMonth2;
             int maxMonth1, maxMonth2;
-            // int count=0;
-            // int minDepartureId=0;
+
             Calendar calendar = Calendar.getInstance();
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
@@ -139,7 +139,6 @@ public class CalendarController {
             year2 = calendar.get(Calendar.YEAR);
             startMonth2 = calendar.get(Calendar.DAY_OF_WEEK);
             maxMonth2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            // minDepartureId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (j < 10 ? "0" : "") + j);
             String endDate=maxMonth2+"-"+month2+"-"+year2;
 
             System.out.println(endDate);
@@ -149,7 +148,7 @@ public class CalendarController {
             for (int i = day1 + 1; i <= maxMonth1; i++) {
                 int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
                 CalendarElement calendarElement = new CalendarElement();
-                if(startId<=nextId) {
+                if(startId<nextId) {
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
                 }
                 calendarElement.setCalId(nextId);
@@ -168,7 +167,7 @@ public class CalendarController {
             for (int i = day2; i <= maxMonth2; i++) {
                 int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
                 CalendarElement calendarElement = new CalendarElement();
-                if(startId<=nextId) {
+                if(startId<nextId) {
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
                 }
                 calendarElement.setCalId(nextId);
