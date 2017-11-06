@@ -18,7 +18,6 @@
                                    value="${data.dateString}"  pattern="dd-MM-yyyy"/>
                     <thead>
                     <tr>
-
                         <c:choose>
                         <c:when test="${status.index==0}">
                             <th colspan="7" class="my-header"><a href="#" class="prev-btn" onclick="loadCalendar('pre')"><i class="material-icons">keyboard_arrow_left</i></a>
@@ -30,9 +29,7 @@
                                 <i class="material-icons">keyboard_arrow_left</i></a> <span class="my-text"><fmt:formatDate pattern="MMMMM yyyy" value="${now}"/>
                          </span> <a href="#" class="next-btn" onclick="loadCalendar('next')"><i class="material-icons">keyboard_arrow_right</i></a></th>
                         </c:otherwise>
-
                         </c:choose>
-
                     </tr>
                     <c:set var="i" value="${data.startDayOfMonth}"/>
 

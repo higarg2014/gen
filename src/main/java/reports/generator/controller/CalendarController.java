@@ -145,7 +145,7 @@ public class CalendarController {
 
             CalendarFare fareCalendar = new CalendarFare();
             Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
-            for (int i = day1 + 1; i <= maxMonth1; i++) {
+            for (int i = 1; i <= maxMonth1; i++) {
                 int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
                 CalendarElement calendarElement = new CalendarElement();
                 if(startId<nextId) {
@@ -164,7 +164,7 @@ public class CalendarController {
 
             CalendarFare fareCalendar1 = new CalendarFare();
             Map<String, CalendarElement> map1 = new HashMap<String, CalendarElement>();
-            for (int i = day2; i <= maxMonth2; i++) {
+            for (int i = 1; i <= maxMonth2; i++) {
                 int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
                 CalendarElement calendarElement = new CalendarElement();
                 if(startId<nextId) {
@@ -187,4 +187,6 @@ public class CalendarController {
 
         return "calendarSub";
     }
+
+
 }
