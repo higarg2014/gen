@@ -111,9 +111,10 @@ public class CalendarController {
         int startId=Integer.parseInt(departureId);
         String startDate=day+"-"+month+"-"+year;
         System.out.println(startDate);
+        int x=0;
         if (count >= 0 && count < 6) {
 
-            count = count * 2;
+
             List<CalendarFare> data = new ArrayList<CalendarFare>();
 
             int day1 = 1, day2 = 1;
@@ -124,6 +125,11 @@ public class CalendarController {
 
             Calendar calendar = Calendar.getInstance();
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+            int maxCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            count = count * 2;
+            if (currentDay == maxCurrentMonth) {
+                count = count+1;
+            }
 
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             calendar.add(Calendar.MONTH, count);
