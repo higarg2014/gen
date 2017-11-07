@@ -146,8 +146,6 @@ public class CalendarController {
             maxMonth2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
             String endDate=maxMonth2+"-"+month2+"-"+year2;
 
-            System.out.println(endDate);
-
             CalendarFare fareCalendar = new CalendarFare();
             Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
             for (int i = 1; i <= maxMonth1; i++) {
