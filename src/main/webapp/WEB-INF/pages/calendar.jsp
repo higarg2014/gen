@@ -92,13 +92,9 @@
     var preCount=0;
     var contextPath='${pageContext.request.contextPath}';
     $( document ).ready(function() {
-
         $("#"+selectedDepartureId).addClass("active");
-
         $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
-
         init();
-
     });
 </script>
 
