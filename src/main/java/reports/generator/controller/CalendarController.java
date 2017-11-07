@@ -32,12 +32,11 @@ public class CalendarController {
         int maxCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        int j = 0;
         if (currentDay == maxCurrentMonth) {
-            j = 1;
+            currentDay = 1;
             count = count + 1;
         } else {
-            j = currentDay + 1;
+            currentDay = currentDay + 1;
         }
 
         calendar.add(Calendar.MONTH, count);
@@ -53,7 +52,7 @@ public class CalendarController {
         startMonth2 = calendar.get(Calendar.DAY_OF_WEEK);
         maxMonth2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (j < 10 ? "0" : "") + j);
+        startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (currentDay < 10 ? "0" : "") + currentDay);
 
 
         CalendarFare fareCalendar = new CalendarFare();
