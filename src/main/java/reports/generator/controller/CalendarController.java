@@ -20,23 +20,22 @@ public class CalendarController {
 
         List<CalendarFare> data = new ArrayList<CalendarFare>();
 
-        int day1 = 1, day2 = 1;
         int month1, month2;
         int year1, year2;
         int startMonth1, startMonth2;
         int maxMonth1, maxMonth2;
         int count = 0;
-        int startId = 0;
+
         Calendar calendar = Calendar.getInstance();
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int departDay = calendar.get(Calendar.DAY_OF_MONTH);
         int maxCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        if (currentDay == maxCurrentMonth) {
-            currentDay = 1;
+        if (departDay == maxCurrentMonth) {
+            departDay = 1;
             count = count + 1;
         } else {
-            currentDay = currentDay + 1;
+            departDay = departDay + 1;
         }
 
         calendar.add(Calendar.MONTH, count);
@@ -45,6 +44,7 @@ public class CalendarController {
         startMonth1 = calendar.get(Calendar.DAY_OF_WEEK);
         maxMonth1 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+        int startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (departDay < 10 ? "0" : "") + departDay);
 
         calendar.add(Calendar.MONTH,  1);
         month2 = calendar.get(Calendar.MONTH) + 1;
@@ -52,17 +52,17 @@ public class CalendarController {
         startMonth2 = calendar.get(Calendar.DAY_OF_WEEK);
         maxMonth2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (currentDay < 10 ? "0" : "") + currentDay);
+
 
         CalendarFare fareCalendar = new CalendarFare();
-        fareCalendar.setDateString(day1 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
+        fareCalendar.setDateString(01 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
         fareCalendar.setNumberOfDays(maxMonth1);
         fareCalendar.setStartDayOfMonth(startMonth1);
         data.add(fareCalendar);
 
 
         CalendarFare fareCalendar1 = new CalendarFare();
-        fareCalendar1.setDateString(day2 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
+        fareCalendar1.setDateString(01 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
         fareCalendar1.setNumberOfDays(maxMonth2);
         fareCalendar1.setStartDayOfMonth(startMonth2);
         data.add(fareCalendar1);
@@ -115,7 +115,6 @@ public class CalendarController {
 
             List<CalendarFare> data = new ArrayList<CalendarFare>();
 
-            int day1 = 1, day2 = 1;
             int month1, month2;
             int year1, year2;
             int startMonth1, startMonth2;
@@ -147,13 +146,13 @@ public class CalendarController {
             String endDate=maxMonth2+"-"+month2+"-"+year2;
 
             CalendarFare fareCalendar = new CalendarFare();
-            fareCalendar.setDateString(day1 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
+            fareCalendar.setDateString(01 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
             fareCalendar.setNumberOfDays(maxMonth1);
             fareCalendar.setStartDayOfMonth(startMonth1);
             data.add(fareCalendar);
 
             CalendarFare fareCalendar1 = new CalendarFare();
-            fareCalendar1.setDateString(day2 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
+            fareCalendar1.setDateString(01 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
             fareCalendar1.setNumberOfDays(maxMonth2);
             fareCalendar1.setStartDayOfMonth(startMonth2);
             data.add(fareCalendar1);
