@@ -8,9 +8,9 @@ import java.util.Map;
 public class CalendarFare {
     private int day;
 
-    private int year;
+    private String year;
 
-    private int month;
+    private String month;
 
     private int numberOfDays;
 
@@ -30,21 +30,7 @@ public class CalendarFare {
         this.day = day;
     }
 
-    public int getYear() {
-        return year;
-    }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
 
     public int getNumberOfDays() {
         return numberOfDays;
@@ -84,5 +70,21 @@ public class CalendarFare {
 
     public void setDataMap(Map<String, CalendarElement> dataMap) {
         this.dataMap = dataMap;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 }

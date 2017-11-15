@@ -41,34 +41,34 @@
             <tbody>
 
             <c:set var="d" value="1"/>
-
+            <c:set var = "year" value="${data.year}"></c:set>
+            <c:set var = "month" value="${data.month}"></c:set>
 
             <c:forEach var="x" begin="1" end="${end}">
             <c:if
-                    test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) ||  (x==36 && i>5 && max>30)}">
+                    test="${(x==1)||(x==8)||(x==15)||(x==22)||(x==29) || (x==36 && i>5 && max>30)}">
             </tr>
             <tr>
                 </c:if>
-
                 <c:choose>
                 <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
-                    <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
 
-                <td  id="${calendar.calId}"  onclick="getCalendarDate(${calendar.calId})">
-                    <div class="flight-label"></div>
+                    <c:set var = "day" value="${d<10?'0'.concat(d):d}"></c:set>
+
+                    <c:set var = "calendarId" value = "${year.concat(month).concat(day)}" />
+                    <c:set var="calendar" value="${data.dataMap[calendarId]}"/>
+
+                <td  id="${calendarId}"  onclick="getCalendarDate(${calendarId})">
+                    <div></div>
                     <c:out value="${d}"/>
                     <small class="price">${calendar.calValue}</small>
                     <c:set var="d" value="${d+1}"/>
                 </td>
-
                 </c:when>
-
-                <c:otherwise><td></td></c:otherwise>
-
+                <c:otherwise><td>
+            </td></c:otherwise>
                 </c:choose>
-
                 </c:forEach>
-
             </tbody>
         </table>
     </li>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -9,6 +10,9 @@
 </head>
 <body>
 <div class="calendar-container">
+
+
+
     <div class="calendar-wrapper">
         <ul id="contentDiv">
             <c:forEach items="${dataMap}" var="data" varStatus="status">
@@ -48,7 +52,8 @@
                     <tbody>
 
                     <c:set var="d" value="1"/>
-
+                    <c:set var = "year" value="${data.year}"></c:set>
+                    <c:set var = "month" value="${data.month}"></c:set>
 
                     <c:forEach var="x" begin="1" end="${end}">
                     <c:if
@@ -58,8 +63,13 @@
                         </c:if>
                         <c:choose>
                             <c:when test="${ (d<=max) && ((x>7)||(i<=x)) }">
-                                <c:set var="calendar" value="${data.dataMap['cal'.concat(d)]}"/>
-                        <td  id="${calendar.calId}"  onclick="getCalendarDate(${calendar.calId})">
+
+                                <c:set var = "day" value="${d<10?'0'.concat(d):d}"></c:set>
+
+                                <c:set var = "calendarId" value = "${year.concat(month).concat(day)}" />
+                                <c:set var="calendar" value="${data.dataMap[calendarId]}"/>
+
+                        <td  id="${calendarId}"  onclick="getCalendarDate(${calendarId})">
                             <div></div>
                                 <c:out value="${d}"/>
                                 <small class="price">${calendar.calValue}</small>
@@ -93,6 +103,7 @@
     var contextPath='${pageContext.request.contextPath}';
     $( document ).ready(function() {
         $("#"+selectedDepartureId).addClass("active");
+
         $("#"+selectedDepartureId).find("div").addClass("flight-lebal").html("DEP");
         init();
     });

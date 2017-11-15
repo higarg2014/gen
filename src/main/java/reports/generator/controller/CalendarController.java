@@ -64,13 +64,15 @@ public class CalendarController {
                 calendarElement.setCalValue("$" + new Random().nextInt(10000));
             }
             calendarElement.setCalId(nextId);
-            map.put("cal" + i, calendarElement);
+            map.put(nextId+"", calendarElement);
         }
         fareCalendar.setDataMap(map);
         fareCalendar.setCurrentMonth(true);
         fareCalendar.setDateString(day1 + "-" + month1 + "-" + year1);
         fareCalendar.setNumberOfDays(maxMonth1);
         fareCalendar.setStartDayOfMonth(startMonth1);
+        fareCalendar.setMonth((month1 < 10 ? "0" : "") + month1);
+        fareCalendar.setYear(year1+"");
         data.add(fareCalendar);
 
 
@@ -83,12 +85,14 @@ public class CalendarController {
                 calendarElement.setCalValue("$" + new Random().nextInt(10000));
             }
             calendarElement.setCalId(nextId);
-            map1.put("cal" + i, calendarElement);
+            map1.put(nextId+"", calendarElement);
         }
         fareCalendar1.setDataMap(map1);
         fareCalendar1.setDateString(day2 + "-" + month2 + "-" + year2);
         fareCalendar1.setNumberOfDays(maxMonth2);
         fareCalendar1.setStartDayOfMonth(startMonth2);
+        fareCalendar1.setMonth((month2 < 10 ? "0" : "") + month2);
+        fareCalendar1.setYear(year2+"");
         data.add(fareCalendar1);
 
 
@@ -155,13 +159,15 @@ public class CalendarController {
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
                 }
                 calendarElement.setCalId(nextId);
-                map.put("cal" + i, calendarElement);
+                map.put(nextId+"", calendarElement);
             }
             fareCalendar.setDataMap(map);
             fareCalendar.setCurrentMonth(true);
             fareCalendar.setDateString(day1 + "-" + month1 + "-" + year1);
             fareCalendar.setNumberOfDays(maxMonth1);
             fareCalendar.setStartDayOfMonth(startMonth1);
+            fareCalendar.setMonth((month1 < 10 ? "0" : "") + month1);
+            fareCalendar.setYear(year1+"");
             data.add(fareCalendar);
 
 
@@ -174,12 +180,14 @@ public class CalendarController {
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
                 }
                 calendarElement.setCalId(nextId);
-                map1.put("cal" + i, calendarElement);
+                map1.put(nextId+"", calendarElement);
             }
             fareCalendar1.setDataMap(map1);
             fareCalendar1.setDateString(day2 + "-" + month2 + "-" + year2);
             fareCalendar1.setNumberOfDays(maxMonth2);
             fareCalendar1.setStartDayOfMonth(startMonth2);
+            fareCalendar1.setMonth((month2 < 10 ? "0" : "") + month2);
+            fareCalendar1.setYear(year2+"");
             data.add(fareCalendar1);
 
 
