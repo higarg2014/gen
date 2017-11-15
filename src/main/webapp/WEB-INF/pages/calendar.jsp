@@ -9,7 +9,9 @@
     <title>Title</title>
 </head>
 <body>
+
 <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
+
 <div class="calendar-container">
 
     <div class="calendar-wrapper">
