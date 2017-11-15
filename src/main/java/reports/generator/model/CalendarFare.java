@@ -7,16 +7,15 @@ import java.util.Map;
  */
 public class CalendarFare {
 
+    private int numberOfDays;
+
+    private int startDayOfMonth;
 
     private String year;
 
     private String month;
 
-    private int numberOfDays;
 
-    private int startDayOfMonth;
-
-    private String dateString;
 
     public int getNumberOfDays() {
         return numberOfDays;
@@ -33,15 +32,6 @@ public class CalendarFare {
     public void setStartDayOfMonth(int startDayOfMonth) {
         this.startDayOfMonth = startDayOfMonth;
     }
-
-    public String getDateString() {
-        return dateString;
-    }
-
-    public void setDateString(String dateString) {
-        this.dateString = dateString;
-    }
-
 
     public String getYear() {
         return year;

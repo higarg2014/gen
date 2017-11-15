@@ -7,29 +7,24 @@ public class CalendarElement {
 
 
 
-    private String calValue;
+    private String price;
 
-    private int calId;
-
-
+    private String currency;
 
 
-
-    public String getCalValue() {
-        return calValue;
+    public String getPrice() {
+        return price;
     }
 
-    public void setCalValue(String calValue) {
-        this.calValue = calValue;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-
-
-    public int getCalId() {
-        return calId;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setCalId(int calId) {
-        this.calId = calId;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

@@ -4,11 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
-<c:forEach items="${dataMap}" var="data" varStatus="status">
+<c:forEach items="${months}" var="data" varStatus="status">
+    <c:set var = "year" value="${data.year}"></c:set>
+    <c:set var = "month" value="${data.month<10?'0'.concat(data.month):data.month}"></c:set>
     <li>
         <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
             <fmt:parseDate var="now"
-                           value="${data.dateString}"  pattern="dd-MM-yyyy"/>
+                           value="${month.concat('-').concat(year)}"  pattern="MM-yyyy"/>
             <thead>
             <tr>
 
@@ -44,9 +46,6 @@
             <tbody>
 
             <c:set var="d" value="1"/>
-            <c:set var="dateParts" value="${fn:split(data.dateString, '-')}" />
-            <c:set var = "year" value="${dateParts[2]}"></c:set>
-            <c:set var = "month" value="${dateParts[1]}"></c:set>
 
             <c:forEach var="x" begin="1" end="${end}">
             <c:if
@@ -65,7 +64,7 @@
                 <td  id="${calendarId}"  onclick="getCalendarDate(${calendarId})">
                     <div></div>
                     <c:out value="${d}"/>
-                    <small class="price">${calendar.calValue}</small>
+                    <small class="price">${calendar.price}</small>
                     <c:set var="d" value="${d+1}"/>
                 </td>
                 </c:when>
