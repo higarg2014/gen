@@ -54,51 +54,47 @@ public class CalendarController {
 
         startId = Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (currentDay < 10 ? "0" : "") + currentDay);
 
-
         CalendarFare fareCalendar = new CalendarFare();
-        Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
-        for (int i = 1; i <= maxMonth1; i++) {
-            int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
-            CalendarElement calendarElement = new CalendarElement();
-            if(startId<nextId) {
-                calendarElement.setCalValue("$" + new Random().nextInt(10000));
-            }
-            calendarElement.setCalId(nextId);
-            map.put(nextId+"", calendarElement);
-        }
-        fareCalendar.setDataMap(map);
-        fareCalendar.setCurrentMonth(true);
-        fareCalendar.setDateString(day1 + "-" + month1 + "-" + year1);
+        fareCalendar.setDateString(day1 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
         fareCalendar.setNumberOfDays(maxMonth1);
         fareCalendar.setStartDayOfMonth(startMonth1);
-        fareCalendar.setMonth((month1 < 10 ? "0" : "") + month1);
-        fareCalendar.setYear(year1+"");
         data.add(fareCalendar);
 
 
         CalendarFare fareCalendar1 = new CalendarFare();
-        Map<String, CalendarElement> map1 = new HashMap<String, CalendarElement>();
-        for (int i = day2; i <= maxMonth2; i++) {
-            int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
-            CalendarElement calendarElement = new CalendarElement();
-            if(startId<nextId) {
-                calendarElement.setCalValue("$" + new Random().nextInt(10000));
-            }
-            calendarElement.setCalId(nextId);
-            map1.put(nextId+"", calendarElement);
-        }
-        fareCalendar1.setDataMap(map1);
-        fareCalendar1.setDateString(day2 + "-" + month2 + "-" + year2);
+        fareCalendar1.setDateString(day2 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
         fareCalendar1.setNumberOfDays(maxMonth2);
         fareCalendar1.setStartDayOfMonth(startMonth2);
-        fareCalendar1.setMonth((month2 < 10 ? "0" : "") + month2);
-        fareCalendar1.setYear(year2+"");
         data.add(fareCalendar1);
 
 
+        Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
+        for (int i = 1; i <= maxMonth1; i++) {
+            int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
+
+            if(startId<nextId) {
+                CalendarElement calendarElement = new CalendarElement();
+                calendarElement.setCalValue("$" + new Random().nextInt(10000));
+                calendarElement.setCalId(nextId);
+                map.put(nextId+"", calendarElement);
+            }
+
+        }
+        for (int i = 1; i <= maxMonth2; i++) {
+            int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
+
+            if(startId<nextId) {
+                CalendarElement calendarElement = new CalendarElement();
+                calendarElement.setCalValue("$" + new Random().nextInt(10000));
+                calendarElement.setCalId(nextId);
+                map.put(nextId+"", calendarElement);
+            }
+
+        }
+
         model.addAttribute("dataMap", data);
         model.addAttribute("minDepartureId", startId);
-
+        model.addAttribute("calendarData", map);
 
         return "calendar";
     }
@@ -151,28 +147,28 @@ public class CalendarController {
             String endDate=maxMonth2+"-"+month2+"-"+year2;
 
             CalendarFare fareCalendar = new CalendarFare();
+            fareCalendar.setDateString(day1 + "-" + (month1 < 10 ? "0" : "") + month1 + "-" + year1);
+            fareCalendar.setNumberOfDays(maxMonth1);
+            fareCalendar.setStartDayOfMonth(startMonth1);
+            data.add(fareCalendar);
+
+            CalendarFare fareCalendar1 = new CalendarFare();
+            fareCalendar1.setDateString(day2 + "-" + (month2 < 10 ? "0" : "") + month2 + "-" + year2);
+            fareCalendar1.setNumberOfDays(maxMonth2);
+            fareCalendar1.setStartDayOfMonth(startMonth2);
+            data.add(fareCalendar1);
+
+
             Map<String, CalendarElement> map = new HashMap<String, CalendarElement>();
             for (int i = 1; i <= maxMonth1; i++) {
                 int nextId=Integer.parseInt(year1 + (month1 < 10 ? "0" : "") + month1 + (i < 10 ? "0" : "") + i);
-                CalendarElement calendarElement = new CalendarElement();
                 if(startId<nextId) {
+                    CalendarElement calendarElement = new CalendarElement();
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
+                    calendarElement.setCalId(nextId);
+                    map.put(nextId+"", calendarElement);
                 }
-                calendarElement.setCalId(nextId);
-                map.put(nextId+"", calendarElement);
             }
-            fareCalendar.setDataMap(map);
-            fareCalendar.setCurrentMonth(true);
-            fareCalendar.setDateString(day1 + "-" + month1 + "-" + year1);
-            fareCalendar.setNumberOfDays(maxMonth1);
-            fareCalendar.setStartDayOfMonth(startMonth1);
-            fareCalendar.setMonth((month1 < 10 ? "0" : "") + month1);
-            fareCalendar.setYear(year1+"");
-            data.add(fareCalendar);
-
-
-            CalendarFare fareCalendar1 = new CalendarFare();
-            Map<String, CalendarElement> map1 = new HashMap<String, CalendarElement>();
             for (int i = 1; i <= maxMonth2; i++) {
                 int nextId=Integer.parseInt(year2 + (month2 < 10 ? "0" : "") + month2 + (i < 10 ? "0" : "") + i);
                 CalendarElement calendarElement = new CalendarElement();
@@ -180,19 +176,11 @@ public class CalendarController {
                     calendarElement.setCalValue("$" + new Random().nextInt(10000));
                 }
                 calendarElement.setCalId(nextId);
-                map1.put(nextId+"", calendarElement);
+                map.put(nextId+"", calendarElement);
             }
-            fareCalendar1.setDataMap(map1);
-            fareCalendar1.setDateString(day2 + "-" + month2 + "-" + year2);
-            fareCalendar1.setNumberOfDays(maxMonth2);
-            fareCalendar1.setStartDayOfMonth(startMonth2);
-            fareCalendar1.setMonth((month2 < 10 ? "0" : "") + month2);
-            fareCalendar1.setYear(year2+"");
-            data.add(fareCalendar1);
-
 
             model.addAttribute("dataMap", data);
-
+            model.addAttribute("calendarData", map);
 
         }
 

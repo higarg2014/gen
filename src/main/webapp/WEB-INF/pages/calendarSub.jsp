@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
 <c:forEach items="${dataMap}" var="data" varStatus="status">
     <li>
         <table class="calendar-table" width="100%" cellpadding="0" cellspacing="0">
@@ -30,7 +33,7 @@
 
             <c:set var="end" value="${i>5 && max>30?42:35}"/>
 
-            <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
+
 
             <tr>
                 <c:forEach items="${days}" var="day">
@@ -41,8 +44,9 @@
             <tbody>
 
             <c:set var="d" value="1"/>
-            <c:set var = "year" value="${data.year}"></c:set>
-            <c:set var = "month" value="${data.month}"></c:set>
+            <c:set var="dateParts" value="${fn:split(data.dateString, '-')}" />
+            <c:set var = "year" value="${dateParts[2]}"></c:set>
+            <c:set var = "month" value="${dateParts[1]}"></c:set>
 
             <c:forEach var="x" begin="1" end="${end}">
             <c:if
@@ -56,7 +60,7 @@
                     <c:set var = "day" value="${d<10?'0'.concat(d):d}"></c:set>
 
                     <c:set var = "calendarId" value = "${year.concat(month).concat(day)}" />
-                    <c:set var="calendar" value="${data.dataMap[calendarId]}"/>
+                    <c:set var="calendar" value="${calendarData[calendarId]}"/>
 
                 <td  id="${calendarId}"  onclick="getCalendarDate(${calendarId})">
                     <div></div>

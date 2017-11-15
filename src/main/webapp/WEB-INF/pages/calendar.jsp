@@ -9,9 +9,8 @@
     <title>Title</title>
 </head>
 <body>
+<c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
 <div class="calendar-container">
-
-
 
     <div class="calendar-wrapper">
         <ul id="contentDiv">
@@ -41,8 +40,6 @@
 
                     <c:set var="end" value="${i>5 && max>30?42:35}"/>
 
-                    <c:set var="days" value="${['S','M','T','W','T','F','S']}"></c:set>
-
                     <tr>
                         <c:forEach items="${days}" var="day">
                             <th width="14%">${day}</th>
@@ -52,8 +49,9 @@
                     <tbody>
 
                     <c:set var="d" value="1"/>
-                    <c:set var = "year" value="${data.year}"></c:set>
-                    <c:set var = "month" value="${data.month}"></c:set>
+                    <c:set var="dateParts" value="${fn:split(data.dateString, '-')}" />
+                    <c:set var = "year" value="${dateParts[2]}"></c:set>
+                    <c:set var = "month" value="${dateParts[1]}"></c:set>
 
                     <c:forEach var="x" begin="1" end="${end}">
                     <c:if
@@ -67,7 +65,7 @@
                                 <c:set var = "day" value="${d<10?'0'.concat(d):d}"></c:set>
 
                                 <c:set var = "calendarId" value = "${year.concat(month).concat(day)}" />
-                                <c:set var="calendar" value="${data.dataMap[calendarId]}"/>
+                                <c:set var="calendar" value="${calendarData[calendarId]}"/>
 
                         <td  id="${calendarId}"  onclick="getCalendarDate(${calendarId})">
                             <div></div>

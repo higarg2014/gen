@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by higarg on 11/1/17.
  */
 public class CalendarFare {
-    private int day;
+
 
     private String year;
 
@@ -17,20 +17,6 @@ public class CalendarFare {
     private int startDayOfMonth;
 
     private String dateString;
-
-    private boolean currentMonth;
-
-    private Map<String,CalendarElement> dataMap;
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-
 
     public int getNumberOfDays() {
         return numberOfDays;
@@ -56,21 +42,6 @@ public class CalendarFare {
         this.dateString = dateString;
     }
 
-    public boolean isCurrentMonth() {
-        return currentMonth;
-    }
-
-    public void setCurrentMonth(boolean currentMonth) {
-        this.currentMonth = currentMonth;
-    }
-
-    public Map<String, CalendarElement> getDataMap() {
-        return dataMap;
-    }
-
-    public void setDataMap(Map<String, CalendarElement> dataMap) {
-        this.dataMap = dataMap;
-    }
 
     public String getYear() {
         return year;
