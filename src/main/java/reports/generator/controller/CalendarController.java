@@ -15,9 +15,9 @@ import java.util.*;
  */
 @Controller
 public class CalendarController {
-    //@ResponseBody
+    @ResponseBody
     @RequestMapping("/calendar1")
-    public String calendar(ModelMap model) {
+    public Map calendar(ModelMap model) {
       HashMap m=new HashMap();
         List<CalendarFare> months = new ArrayList<CalendarFare>();
 
@@ -107,7 +107,8 @@ public class CalendarController {
         m.put("viewStartDepartId", year1 + (month1 < 10 ? "0" : "") + month1 + "01");
         m.put("viewEndDepartId", year2 + (month2 < 10 ? "0" : "") + month2 + maxMonth2);
         m.put("calendarData", map);
-        return "calendar";
+        //return "calendar";
+        return m;
     }
 
     @RequestMapping("/ajax")
